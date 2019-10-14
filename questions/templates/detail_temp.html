@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container">
+  <h1>{{question.title}}</h1>
+  <form action="{% url 'questions:choice_create' question.id %}" method="POST">
+    {% csrf_token %}
+    <div class="row">
+      
+      <div class="card bg-primary col-6 " style="width: 18rem;">
+        <a href="{% url 'questions:choice_nocomment' question.id 1 %}">
+        <div class="card-body">
+          <p class="card-text text-white font-weight-bold text-center">{{question.content_a}} : {{p1}}</p>
+          <p class="card-text text-white font-weight-bold text-center"> {{p1_percent}}% </p>
+          <label class="center"><input type="radio" name="pick" value=1></label>
+        </div>
+        </a>
+      </div>
+      
+      <div class="card bg-danger col-6 " style="width: 18rem;">
+          <a href="{% url 'questions:choice_nocomment' question.id 2 %}">
+        <div class="card-body">
+          <p class="card-text text-white font-weight-bold text-center">{{question.content_b}} : {{p2}}</p>
+          <p class="card-text text-white font-weight-bold text-center"> {{p2_percent}}% </p>
+          <label class="center"><input type="radio" name="pick" value=2></label>
+        </div>
+        </a>
+      </div>
+    </div>
+
+    <label> 의견 입력 </label>
+    <input class="form-control" type="text" name="comment">
+    <input class="btn btn-primary" type="submit" value="제출">
+  </form>
+  {% if question.choice_set.all %}
+    {% for choice in question.choice_set.all %}
+      {% if choice.comment %}
+        {% if choice.pick == 2 %}
+          <div class="alert alert-danger" role="alert">
+            {{choice.comment}}
+            <a href="{% url 'questions:choice_delete' question.id choice.id %}" class="btn btn-danger">삭제</a>
+          </div>
+        {% else %}
+          <div class="alert alert-primary" role="alert">
+            {{choice.comment}}
+            <a href="{% url 'questions:choice_delete' question.id choice.id %}" class="btn btn-danger">삭제</a>
+          </div>
+        {% endif %}
+      {% endif %}
+      
+    {% endfor %}
+  {% else %}
+    <div class="alert alert-danger" role="alert">
+      댓글이 없습니다.
+    </div>
+  {% endif %}
+
+</div>
+{% endblock %}

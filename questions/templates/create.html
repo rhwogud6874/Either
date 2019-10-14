@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<div class="container">
+  <form action="" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="title">주제</label>
+      <input type="text" class="form-control" id="title" placeholder="주제를 입력하세요" name="title">
+    </div>
+    <div class="form-group">
+      <label for="content_a">선택지 1</label>
+      <input type="text" class="form-control" id="content_a" name="content_a">
+    </div>
+    <div class="form-group">
+      <label for="content_b">선택지 2</label>
+      <input type="text" class="form-control" id="content_b" name="content_b">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+</div>
+
+
+
+{% endblock %}

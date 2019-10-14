@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block body %}
+<form action="" method="POST">
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="title">주제</label>
+    <input type="text" class="form-control" id="title" placeholder="주제를 입력하세요" name="title" value="{{question.title}}">
+  </div>
+  <div class="form-group">
+    <label for="content_a">선택지 1</label>
+    <input type="text" class="form-control" id="content_a" name="content_a" value="{{question.content_a}}">
+  </div>
+  <div class="form-group">
+    <label for="content_b">선택지 2</label>
+    <input type="text" class="form-control" id="content_b" name="content_b" value="{{question.content_b}}">
+  </div>
+  <button type="submit" class="btn btn-primary">수정</button>
+  <a class="btn btn-danger" href="{% url 'questions:delete' question.id %}">삭제</a>
+</form>
+
+
+{% endblock %}

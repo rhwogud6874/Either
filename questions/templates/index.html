@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block body %}
+  <div class="container">
+    <ul class="list-group">
+      {% for question in questions_list %}
+      <div>
+        <a class="text-dark" href="{% url 'questions:detail' question.id %}"><li class="list-group-item">{{question.title}}</li></a>
+      </div>
+          
+      {% endfor %}
+    </ul>
+  </div>
+  
+  
+{% endblock %}
